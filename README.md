@@ -23,3 +23,20 @@ This project is an E-commerce platform that connects rural farmers to urban mark
    ```bash
    python -m venv venv
    source venv/Scripts/activate  # On Windows; use `source venv/bin/activate` on macOS/Linux
+# Social Media API Capstone Project
+
+## Project Overview
+This project is a Social Media API built using Django and Django REST Framework. It allows users to register, log in, create posts, follow users, and view a personalized feed.
+
+## Features Implemented This Week
+- **Cart Functionality:** Users can add, update, and remove items from their cart.
+- **Order Processing:** Users can place orders and view order details.
+- **User Authentication Improvements:** Implemented password reset functionality (and plans for email verification).
+- **API Testing:** Endpoints were tested using Postman and curl.
+- **Additional Refinements:** Improved error handling and data validation across endpoints.
+
+## How to Run
+1. **Set up a virtual environment:**
+   ```bash
+   python -m venv venv
+   source venv/Scripts/activate  # Windows; use venv/bin/activate on macOS/Linux

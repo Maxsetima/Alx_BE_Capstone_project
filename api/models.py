@@ -1,9 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Optionally extend User via a Profile if extra fields are needed.
-# For simplicity, we'll use Django's built-in User.
-
 # Product Model (for Farmers)
 class Product(models.Model):
     CATEGORY_CHOICES = [
@@ -15,7 +12,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='products')
+    # Changed related_name from 'products' to 'api_products'
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='api_products')
     image = models.URLField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
