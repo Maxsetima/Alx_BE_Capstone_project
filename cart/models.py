@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from products.models import Product  # Import the Product model from your products app
+from django.apps import apps  # Import the Product model from your products app
 
 class CartItem(models.Model):
     user = models.ForeignKey(
@@ -8,7 +8,7 @@ class CartItem(models.Model):
         on_delete=models.CASCADE,
         related_name='cart_items'
     )
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey('products.Product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=0)
 
     def __str__(self):

@@ -1,6 +1,8 @@
+from rest_framework.schemas import get_schema_view
 from django.urls import path
 from .views import (
     home,
+    UserProfileView,
     # User API endpoints
     UserRegisterView, UserDetailView, UserUpdateView,
     # Product API endpoints
@@ -19,11 +21,12 @@ urlpatterns = [
     # API Home
     path('', home, name='api-home'),
     
+     path('profile/', UserProfileView.as_view(), name='user-profile'),
     # User API endpoints
     path('users/register/', UserRegisterView.as_view(), name='user-register'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
-
+    path('openapi/', get_schema_view(title="E-commerce API"), name='openapi-schema'),
     # Product API endpoints
     path('products/', ProductListView.as_view(), name='product-list'),
     path('products/new/', ProductCreateView.as_view(), name='product-create'),

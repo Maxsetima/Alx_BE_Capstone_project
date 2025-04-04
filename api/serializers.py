@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import CustomUser
 from .models import Product, Order, Logistics, Payment, Review
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'bio', 'profile_picture']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

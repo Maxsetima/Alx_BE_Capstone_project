@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from rest_framework import generics
 from django.contrib.auth.models import User
+from .models import CustomUser
+from .serializers import UserProfileSerializer
+from rest_framework.permissions import IsAuthenticated
 from .models import Product, Order, Logistics, Payment, Review
 from .serializers import (
     UserSerializer, ProductSerializer, OrderSerializer,
@@ -10,6 +13,15 @@ from .serializers import (
 # API Home View
 def home(request):
     return render(request, 'api/home.html')
+
+class UserProfileView(generics.RetrieveUpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
 
 # User API
 class UserRegisterView(generics.CreateAPIView):
