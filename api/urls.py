@@ -1,33 +1,34 @@
-from rest_framework.schemas import get_schema_view
-from django.urls import path
+from django.contrib import admin
+from django.urls import path, include
+from .views import CustomAuthToken
+from rest_framework.authtoken.views import obtain_auth_token
+from . import views
+
+# Correct import after installation
 from .views import (
-    home,
-    UserProfileView,
-    # User API endpoints
+    APIHomeView,  # Newly added API home view
     UserRegisterView, UserDetailView, UserUpdateView,
-    # Product API endpoints
     ProductListView, ProductCreateView, ProductUpdateView, ProductDeleteView,
-    # Order API endpoints
     OrderCreateView, OrderDetailView, OrderUpdateView,
-    # Logistics API endpoints
     LogisticsListView, LogisticsCreateView, LogisticsUpdateView,
-    # Payment API endpoints
     PaymentCreateView, PaymentDetailView,
-    # Review API endpoints
     ReviewCreateView, ReviewListView,
+    product_list, order_list, payment_list  # Import your views
 )
 
 urlpatterns = [
     # API Home
-    path('', home, name='api-home'),
-    
-     path('profile/', UserProfileView.as_view(), name='user-profile'),
+    path('', APIHomeView.as_view(), name='api-home'),
+
+    path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),
+
+    path('api-token-auth/', obtain_auth_token),  # Token generation endpoint
     # User API endpoints
-    path('users/register/', UserRegisterView.as_view(), name='user-register'),
+    path('auth/register/', UserRegisterView.as_view(), name='user-register'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user-detail'),
     path('users/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
-    path('openapi/', get_schema_view(title="E-commerce API"), name='openapi-schema'),
-    # Product API endpoints
+
+    # Product API endpoints (remove duplicate function-based view)
     path('products/', ProductListView.as_view(), name='product-list'),
     path('products/new/', ProductCreateView.as_view(), name='product-create'),
     path('products/<int:pk>/update/', ProductUpdateView.as_view(), name='product-update'),
@@ -38,6 +39,9 @@ urlpatterns = [
     path('orders/<int:pk>/', OrderDetailView.as_view(), name='order-detail'),
     path('orders/<int:pk>/update/', OrderUpdateView.as_view(), name='order-update'),
 
+    # Optional: If you want to keep the function-based order list (but NOT duplicate)
+    path('orders/list/', order_list, name='order-list'),
+
     # Logistics API endpoints
     path('logistics/', LogisticsListView.as_view(), name='logistics-list'),
     path('logistics/new/', LogisticsCreateView.as_view(), name='logistics-create'),
@@ -47,7 +51,10 @@ urlpatterns = [
     path('payments/', PaymentCreateView.as_view(), name='payment-create'),
     path('payments/<int:pk>/', PaymentDetailView.as_view(), name='payment-detail'),
 
+    # Optional: Separate endpoint for listing payments via function view
+    path('payments/list/', payment_list, name='payment-list'),
+
     # Review API endpoints
     path('reviews/', ReviewCreateView.as_view(), name='review-create'),
-    path('reviews/<int:product_id>/', ReviewListView.as_view(), name='review-list'),
+    path('reviews/product/<int:product_id>/', ReviewListView.as_view(), name='review-list'),
 ]
