@@ -23,4 +23,6 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token),  # <- add this line
     path('api/auth/', include('accounts.urls')),  # Only include it once
     path('api/', include('api.urls')),  # Include any other app URLs (like 'api' or 'products')
+    path('api/', include('products.urls')),  # ⬅️ Add this line
+    path('api-token-auth/', include('rest_framework.urls')),  # optional for browsable auth
 ]

@@ -20,4 +20,4 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'  # Includes all fields for Product
-        read_only_fields = ['farmer', 'created_date']  # These fields can't be modified after creation
+        

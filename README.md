@@ -111,8 +111,8 @@ Obtain Auth Token
 http:
 POST /api-token-auth/
 {
-  "username": "your_username",
-  "password": "your_password"
+  "username": "mkulima",
+  "password": "Testproject123"
 }
 
 
